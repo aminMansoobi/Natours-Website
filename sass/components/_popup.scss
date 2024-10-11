@@ -1,0 +1,123 @@
+.popup {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50000;
+  background-color: rgba($color-black, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  @supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+  }
+
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__close {
+    &:link,
+    &:visited {
+      color: $color-gray-dark;
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+      line-height: 1;
+      @include respond(tab-port) {
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 2rem;
+      }
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__content {
+    background-color: $color-white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    width: 75%;
+    border-radius: 3px;
+    display: table;
+    overflow: hidden;
+    transition: all 0.5s;
+
+    @media (max-width: 88.37em) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__left {
+    width: 33.333333%;
+    display: table-cell;
+
+    @media (max-width: 88.37em) {
+      display: flex;
+      width: 50%;
+      margin-left: -50%;
+    }
+
+    @media (max-width: 25em) {
+      display: none;
+    }
+  }
+
+  &__right {
+    width: 66.666667%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+    @media (max-width: 88.37em) {
+      width: 100%;
+      display: inline-block;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+
+    @media (max-width: 88.37em) {
+      display: inline-flex;
+    }
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+    column-count: 2;
+    column-gap: 4rem;
+    column-rule: 1px solid $color-gray-dark2;
+    hyphens: auto;
+
+    @include respond(phone) {
+      column-count: 1;
+    }
+  }
+
+  &:target &__content {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
